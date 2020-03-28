@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <!--MyBatis3,MyBatis3Simple,MyBatis3DynamicSql-->
+    <context id="MySqlContext" targetRuntime="MyBatis3" defaultModelType="flat">
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <plugin type="MyBatisPlugin" >
+        <property name="hasLombok" value="true"/>
+    </plugin>
+        <!-- 为模型生成序列化方法-->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+        <!-- 为生成的Java模型创建一个toString方法 -->
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+        <!--&lt;!&ndash;生成mapper.xml时覆盖原文件&ndash;&gt;-->
+        <!--<plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin" />-->
+        <!--<commentGenerator type="com.drawon.mall.mbg.CustomCommentGenerator">-->
+        <!--type="MyCommentGenerator"-->
+        <commentGenerator  type="MyCommentGenerator" >
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <!--<property name="suppressAllComments" value="true"/>-->
+            <property name="suppressDate" value="true"/>
+            <property name="addRemarkComments" value="true"/>
+        </commentGenerator>
+
+                        <!--connectionURL="jdbc:mysql://47.99.163.153:3306/access_gate?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2b8"-->
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/xxxx?useUnicode=true&amp;characterEncoding=UTF-8&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=GMT%2b8"
+                        userId="xxx"
+                        password="xxxx">
+            <!--解决mysql驱动升级到8.0后不生成指定数据库代码的问题-->
+            <property name="nullCatalogMeansCurrent" value="true" />
+        </jdbcConnection>
+
+        <javaModelGenerator  targetPackage="com.drawon.mall.entity" targetProject="src/main/java/"/>
+
+        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources/"/>
+
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.drawon.mall.mapper"
+                             targetProject="src/main/java/"/>
+        <!--生成全部表tableName设为%-->
+        <table tableName="%"
+               enableSelectByExample="false"
+               enableUpdateByExample="false" enableCountByExample="false" enableDeleteByExample="false">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+    </context>
+</generatorConfiguration>
